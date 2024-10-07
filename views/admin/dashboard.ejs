@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        /* Card styling for users */
+        .user-card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-actions {
+            margin-left: 20px;
+        }
+
+        .user-actions a {
+            margin-right: 10px;
+            text-decoration: none;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+
+        .user-actions a:hover {
+            background-color: #0056b3;
+        }
+
+        .user-actions a.delete {
+            background-color: #dc3545;
+        }
+
+        .user-actions a.delete:hover {
+            background-color: #c82333;
+        }
+
+        /* Search Bar Styles */
+        form {
+            margin-bottom: 20px;
+        }
+
+        form input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 300px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        form button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        form button:hover {
+            background-color: #218838;
+        }
+
+        /* Logout link */
+        a {
+            text-decoration: none;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        a.logout {
+            background-color: #dc3545;
+        }
+
+        a.logout:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome, <%= admin.adminName %>!</h1>
+    <h2>All Registered Users</h2>
+
+    <!-- Search Bar -->
+    <form method="GET" action="/admin/dashboard">
+        <input type="text" name="search" placeholder="Search by username or email" value="<%= searchQuery %>">
+        <button type="submit">Search</button>
+    </form>
+
+    <a href="/admin/logout" class="logout">Logout</a>
+
+    <!-- Display users -->
+    <% if (users.length > 0) { %>
+        <% users.forEach(function(user) { %>
+            <div class="user-card">
+                <div class="user-info">
+                    <p><strong>Username:</strong> <%= user.username %></p>
+                    <p><strong>Email:</strong> <%= user.email %></p>
+                </div>
+                <div class="user-actions">
+                    <a href="/admin/edit-user/<%= user._id %>">Edit</a> <!-- Edit user link -->
+                    <a href="/admin/delete-user/<%= user._id %>" class="delete">Delete</a> <!-- Delete user link -->
+                </div>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <p>No users found.</p>
+    <% } %>
+
+</body>
+</html>

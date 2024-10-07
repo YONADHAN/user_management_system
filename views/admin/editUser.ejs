@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+           
+        }
+
+        h1 {
+            
+            color: #333;
+        }
+
+        form {
+          
+            max-width: 400px;
+            margin: 80px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 95%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        p.error {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        a {
+            padding: 10px 20px;
+            background-color: #007bff;
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: white;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <form action="/admin/edit-user/<%= user._id %>" method="POST">
+        <h1>Edit User</h1>
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" name="username" value="<%= user.username %>" required>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" name="email" value="<%= user.email %>" required>
+        </div>
+        <button type="submit">Update User</button>
+        <a href="/admin/dashboard">Back to Dashboard</a>
+    </form>
+
+    <% if (error) { %>
+        <p class="error"><%= error %></p>
+    <% } %>
+
+   
+</body>
+</html>

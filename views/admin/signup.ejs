@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            
+            max-width: 400px;
+            margin: 80px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        p.error {
+            color: red;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function validateAdminForm(event) {
+            // Prevent form submission
+            event.preventDefault();
+
+            const adminName = document.querySelector('input[name="adminName"]').value.trim();
+            const email = document.querySelector('input[name="email"]').value.trim();
+            const password = document.querySelector('input[name="password"]').value.trim();
+            const confirmPassword = document.querySelector('input[name="confirmPassword"]').value.trim();
+
+            // Check if any field is empty or contains only spaces
+            if (!adminName || !email || !password || !confirmPassword) {
+                alert("All fields are required and cannot be empty or just spaces!");
+                return;
+            }
+
+            // Check if the admin name contains any numbers
+            const adminNamePattern = /^[A-Za-z ]+$/; // Allows only letters and spaces
+            if (!adminNamePattern.test(adminName)) {
+                alert("Admin Name should not contain numbers!");
+                return;
+            }
+
+            if (password.length < 6) {
+                alert("Password should be at least 6 characters long!");
+                return;
+            }
+
+            // Check if the passwords match
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            // Basic email format validation
+            const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address!");
+                return;
+            }
+
+            // If everything is valid, submit the form
+            document.querySelector('form').submit();
+        }
+    </script>
+</head>
+<body>
+   
+    <form action="/admin/signup" method="post" onsubmit="validateAdminForm(event)">
+        <h2>Admin Sign Up</h2>
+        <input type="text" name="adminName" placeholder="Admin Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+        <button type="submit">Sign Up</button>
+        <a href="/admin/signin">Sign In</a>
+    </form>
+    
+</body>
+</html>
